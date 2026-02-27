@@ -1,25 +1,37 @@
 public class PallindromeChecker {
     public static void main(String[] args) {
 
-                // Hardcoded string
-                String original = "level";
+        Scanner sc = new Scanner(System.in);
 
-                // Variable to store reversed string
-                String reversed = "";
+        System.out.print("Input text: ");
+        String text = sc.nextLine();
 
-                // Reverse string using for loop
-                for (int i = original.length() - 1; i >= 0; i--) {
-                    reversed = reversed + original.charAt(i);  // String concatenation
-                }
+        // Convert string to character array
+        char[] characters = text.toCharArray();
 
-                // Compare original and reversed using equals()
-                if (original.equals(reversed)) {
-                    System.out.println(original + " is a Palindrome.");
-                } else {
-                    System.out.println(original + " is not a Palindrome.");
-                }
+        int start = 0;
+        int end = characters.length - 1;
+
+        boolean isPalindrome = true;
+
+        // Two-pointer comparison
+        while (start < end) {
+
+            if (characters[start] != characters[end]) {
+                isPalindrome = false;
+                break;
             }
+
+            start++;
+            end--;
         }
+
+        if (isPalindrome) {
+            System.out.println("Decision: It is a Palindrome.");
+        } else {
+            System.out.println("Decision: It is NOT a Palindrome.");
+        }
+
 
     }
 }
