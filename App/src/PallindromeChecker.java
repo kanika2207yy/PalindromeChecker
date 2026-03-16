@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class UseCase8PallindromeCheckerApp {
+public class PallindromeChecker {
 
     // Node class for singly linked list
     static class Node {
@@ -80,7 +80,7 @@ public class UseCase8PallindromeCheckerApp {
         boolean result = isPalindrome(input);
 
         if (result) {
-            System.out.println("The given string is a Palindrome.");
+            System.out.println(" The given string is a Palindrome.");
         } else {
             System.out.println("The given string is NOT a Palindrome.");
         }
