@@ -1,31 +1,69 @@
-
-import java.util.Deque;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 public class PallindromeChecker {
 
-    // Method to check palindrome using Deque
+    // Node class for singly linked list
+    static class Node {
+        char data;
+        Node next;
+
+        Node(char data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    // Method to check palindrome using Linked List
     public static boolean isPalindrome(String input) {
 
-        // Convert to lowercase and remove spaces
         input = input.toLowerCase().replaceAll("\\s+", "");
 
-        Deque<Character> deque = new LinkedList<>();
+        // Convert string into linked list
+        Node head = null;
+        Node tail = null;
 
-        // Insert characters into deque
         for (char ch : input.toCharArray()) {
-            deque.addLast(ch);
+            Node newNode = new Node(ch);
+
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
+            }
         }
 
-        // Compare front and rear elements
-        while (deque.size() > 1) {
-            char front = deque.removeFirst();
-            char rear = deque.removeLast();
+        // Find middle using fast and slow pointer
+        Node slow = head;
+        Node fast = head;
 
-            if (front != rear) {
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Reverse second half
+        Node prev = null;
+        Node current = slow;
+
+        while (current != null) {
+            Node nextNode = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextNode;
+        }
+
+        // Compare both halves
+        Node firstHalf = head;
+        Node secondHalf = prev;
+
+        while (secondHalf != null) {
+            if (firstHalf.data != secondHalf.data) {
                 return false;
             }
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
         }
 
         return true;
@@ -35,14 +73,14 @@ public class PallindromeChecker {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("=== Deque-Based Palindrome Checker ===");
+        System.out.println("=== Linked List Based Palindrome Checker ===");
         System.out.print("Enter a string: ");
         String input = scanner.nextLine();
 
         boolean result = isPalindrome(input);
 
         if (result) {
-            System.out.println("The given string is a Palindrome.");
+            System.out.println(" The given string is a Palindrome.");
         } else {
             System.out.println("The given string is NOT a Palindrome.");
         }
