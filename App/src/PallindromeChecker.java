@@ -1,37 +1,47 @@
 import java.util.Scanner;
+import java.util.Stack;
 
 public class PallindromeChecker {
 
-    // Method to check palindrome ignoring case and spaces
-    public static boolean isPalindrome(String input) {
+    // PalindromeChecker class encapsulates palindrome logic
+    static class PalindromeChecker {
 
-        // Normalize string: lowercase and remove all spaces
-        input = input.toLowerCase().replaceAll("\\s+", "");
-
-        int start = 0;
-        int end = input.length() - 1;
-
-        // Compare characters from start and end
-        while (start < end) {
-            if (input.charAt(start) != input.charAt(end)) {
-                return false;
+        // Method to check palindrome
+        public boolean checkPalindrome(String input) {
+            if (input == null || input.isEmpty()) {
+                return true;
             }
-            start++;
-            end--;
-        }
 
-        return true;
+            // Normalize string: lowercase and remove spaces
+            input = input.toLowerCase().replaceAll("\\s+", "");
+
+            // Use stack to reverse string
+            Stack<Character> stack = new Stack<>();
+            for (char ch : input.toCharArray()) {
+                stack.push(ch);
+            }
+
+            // Compare characters
+            for (char ch : input.toCharArray()) {
+                if (ch != stack.pop()) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("=== Case-Insensitive & Space-Ignored Palindrome Checker ===");
+        System.out.println("=== Object-Oriented Palindrome Service ===");
         System.out.print("Enter a string: ");
         String input = scanner.nextLine();
 
-        boolean result = isPalindrome(input);
+        PalindromeChecker checker = new PalindromeChecker();
+        boolean result = checker.checkPalindrome(input);
 
         if (result) {
             System.out.println("The given string is a Palindrome.");
